@@ -21,13 +21,5 @@ $port=587
 $password = ConvertTo-SecureString $password -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential($email, $password)
 
-Send-MailMessage -SmtpServer $smtp `
-    -Port $port `
-    -UseSsl `
-    -Credential $credentials
-    -To $email `
-    -From $email `
-    -Subject $(convertToUtf8 $subject) `
-    -Body $(convertToUtf8 $body) `
-    -Encoding UTF8
+Send-MailMessage -SmtpServer $smtp -Port $port -UseSsl -Credential $credentials -To $email -From $email -Subject $(convertToUtf8 $subject) -Body $(convertToUtf8 $body) -Encoding UTF8
 
