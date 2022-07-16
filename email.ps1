@@ -9,6 +9,8 @@ Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"
 $subject="Привет"
 $body="Body"
 
+[char[]]$subject
+
 Write-Host ($subject.Length)
 Write-Host ([System.Text.Encoding]::Default.GetByteCount($subject))
 Write-Host ([System.Text.Encoding]::Default.GetBytes($subject))
