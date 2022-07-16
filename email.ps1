@@ -1,15 +1,12 @@
 ipconfig  | Out-Null 
 [Console]::OutputEncoding = [System.Text.Encoding]::Default
 
-Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
-Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"
-
 function convertToUtf8($str) {
     return [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Default.GetBytes($str))
 }
 
-$subject=$(convertToUtf8 "Привет")
-$body="Body"
+$subject="Письмо из Повершелла"
+$body="Тимсити и Повершелл побеждены!!!"
 
 Write-Host "---------- TEXT START ---------"
 Write-Host $subject
@@ -24,4 +21,13 @@ $port=587
 $password = ConvertTo-SecureString $password -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential($email, $password)
 
-Send-MailMessage -SmtpServer $smtp -Port $port -To $email -From $email -Subject $subject -Body $body -Encoding UTF8 -UseSsl -Credential $credentials
+Send-MailMessage -SmtpServer $smtp `
+    -Port $port `
+    -UseSsl `
+    -Credential $credentials
+    -To $email `
+    -From $email `
+    -Subject $(convertToUtf8 $subject) `
+    -Body $(convertToUtf8 $body) `
+    -Encoding UTF8
+
