@@ -1,3 +1,6 @@
+Write-Host ([System.Text.Encoding]::Default.EncodingName)
+break
+
 ipconfig  | Out-Null 
 [Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("windows-1251")
 
@@ -30,4 +33,4 @@ Write-Host $subject
 Write-Host $body
 
 $encoding = [System.Text.Encoding]::UTF8
-Send-MailMessage -SmtpServer $smtp -To $email -From $email -Subject $subject -Body $body -Encoding $encoding
+# Send-MailMessage -SmtpServer $smtp -To $email -From $email -Subject $subject -Body $body -Encoding $encoding
