@@ -5,7 +5,7 @@ ipconfig  | Out-Null
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"   
 
-$subject="Тема"
+$subject=$(Get-Content -Path text.txt -Encoding UTF8)
 $body="Body"
 
 Write-Host "---------- BEFORE ENCODING ---------"
