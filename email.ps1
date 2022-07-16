@@ -4,19 +4,15 @@ ipconfig  | Out-Null
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"  
 
-$subject="Привет"
+$subject="а"
 $body="Body"
 
 [byte[]]$subject
 
-#Write-Host ($subject.Length)
-#Write-Host ([System.Text.Encoding]::Default.GetByteCount($subject))
-#Write-Host ([System.Text.Encoding]::Default.GetBytes($subject))
-#Write-Host "========="
-#Write-Host ($body.Length)
-#Write-Host ([System.Text.Encoding]::Default.GetByteCount($body))
-#Write-Host ([System.Text.Encoding]::Default.GetBytes($body))
-#break
+Write-Host ($subject.Length)
+Write-Host ([System.Text.Encoding]::Default.GetByteCount($subject))
+Write-Host ([System.Text.Encoding]::Default.GetBytes($subject))
+break
 
 Write-Host "---------- TEXT START ---------"
 Write-Host $subject
