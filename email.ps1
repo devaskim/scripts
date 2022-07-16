@@ -1,5 +1,6 @@
 ipconfig  | Out-Null 
-[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("windows-1251")
+#[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("windows-1251")
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"   
