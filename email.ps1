@@ -7,8 +7,6 @@ Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"
 $subject="а"
 $body="Body"
 
-[byte[]]$subject
-
 Write-Host ($subject.Length)
 Write-Host ([System.Text.Encoding]::Default.GetByteCount($subject))
 Write-Host ([System.Text.Encoding]::Default.GetBytes($subject))
