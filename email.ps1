@@ -5,7 +5,7 @@ Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)"
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"
 
 function convertToUtf8($str) {
-    return [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Default.GetBytes($subject))
+    return [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Default.GetBytes($str))
 }
 
 $subject=$(convertToUtf8 "Привет")
