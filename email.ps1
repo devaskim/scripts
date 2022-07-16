@@ -4,7 +4,7 @@ ipconfig  | Out-Null
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"   
 
-$subject="Theme"
+$subject="Тема"
 $body="Body"
 
 Write-Host "---------- BEFORE ENCODING ---------"
