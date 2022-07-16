@@ -1,8 +1,8 @@
-Write-Host ([System.Text.Encoding]::Default.EncodingName)
-break
-
 ipconfig  | Out-Null 
 [Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("windows-1251")
+
+Write-Host ([System.Text.Encoding]::Default.EncodingName)
+break
 
 function ConvertTo-Encoding ([string]$From, [string]$To){
 	Begin{
