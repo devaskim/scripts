@@ -4,15 +4,12 @@ ipconfig  | Out-Null
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"  
 
-'foo' | Set-Content -Encoding whatever
-break
-
 # $subject=$(Get-Content -Path text.txt -Encoding UTF8)
 
 $subject="Привет"
 $body="Body"
 
-$subject | Out-File -FilePath temp.txt -Encoding UTF8 
+$subject | Set-Content -Encoding UTF8 temp.txt
 $subject=$(Get-Content -Path temp.txt -Encoding UTF8)
 
 Write-Host "---------- BEFORE ENCODING ---------"
