@@ -6,7 +6,7 @@ Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"
 
 $encoding = [System.Text.Encoding]::UTF8
 $subject ="Привет"
-$subject= $enencodingc.GetBytes($subject)
+$subject= $encoding.GetBytes($subject)
 
 # $subject=$(Get-Content -Path text.txt -Encoding UTF8)
 $body="Body"
