@@ -9,8 +9,13 @@ Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"
 $subject="Привет"
 $body="Body"
 
+Write-Host ($subject.Length)
 Write-Host ([System.Text.Encoding]::Default.GetByteCount($subject))
 Write-Host ([System.Text.Encoding]::Default.GetBytes($subject))
+Write-Host "========="
+Write-Host ($body.Length)
+Write-Host ([System.Text.Encoding]::Default.GetByteCount($body))
+Write-Host ([System.Text.Encoding]::Default.GetBytes($body))
 break
 
 $subject | Set-Content -Encoding UTF8 temp.txt
