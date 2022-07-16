@@ -1,5 +1,5 @@
 ipconfig  | Out-Null 
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::Default
 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"  
