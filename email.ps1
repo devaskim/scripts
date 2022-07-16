@@ -4,7 +4,7 @@ ipconfig  | Out-Null
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"  
 
-$subject="а"
+$subject="Привет"
 $body="Body"
 
 Write-Host ($subject.Length)
@@ -30,4 +30,4 @@ $credentials = New-Object System.Management.Automation.PSCredential($email, $pas
 
 Send-MailMessage -SmtpServer $smtp -Port $port -To $email -From $email -Subject $subject -Body $body -Encoding ([System.Text.Encoding]::Default) -UseSsl -Credential $credentials
 
-Send-MailMessage -SmtpServer $smtp -Port $port -To $email -From $email -Subject $subject2 -Body $body -Encoding UTF8 -UseSsl -Credential $credentials
+#Send-MailMessage -SmtpServer $smtp -Port $port -To $email -From $email -Subject $subject2 -Body $body -Encoding UTF8 -UseSsl -Credential $credentials
