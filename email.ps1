@@ -9,24 +9,25 @@ Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"
 $subject="Привет"
 $body="Body"
 
-[char[]]$subject
+#[char[]]$subject
 
-Write-Host ($subject.Length)
-Write-Host ([System.Text.Encoding]::Default.GetByteCount($subject))
-Write-Host ([System.Text.Encoding]::Default.GetBytes($subject))
-Write-Host "========="
-Write-Host ($body.Length)
-Write-Host ([System.Text.Encoding]::Default.GetByteCount($body))
-Write-Host ([System.Text.Encoding]::Default.GetBytes($body))
-break
+#Write-Host ($subject.Length)
+#Write-Host ([System.Text.Encoding]::Default.GetByteCount($subject))
+#Write-Host ([System.Text.Encoding]::Default.GetBytes($subject))
+#Write-Host "========="
+#Write-Host ($body.Length)
+#Write-Host ([System.Text.Encoding]::Default.GetByteCount($body))
+#Write-Host ([System.Text.Encoding]::Default.GetBytes($body))
+#break
 
-$subject | Set-Content -Encoding UTF8 temp.txt
-$subject=$(Get-Content -Path temp.txt -Encoding UTF8)
-
-Write-Host "---------- BEFORE ENCODING ---------"
+Write-Host "---------- TEXT START ---------"
 Write-Host $subject
+Write-Host $subject 6>>  temp.txt
+
 Write-Host $body
-Write-Host "---------- AFTER ENCODING ---------"
+Write-Host "---------- TEXT END ---------"
+
+$subject=$(Get-Content -Path temp.txt -Encoding UTF8)
 
 $password="egwyxnfiwpmnjuqf"
 $email="denisdenisi4@yandex.ru"
