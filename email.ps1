@@ -1,11 +1,14 @@
 ipconfig  | Out-Null 
-#[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("windows-1251")
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.EncodingName)" 
 Write-Host "Encoding: $([System.Text.Encoding]::Default.CodePage)"   
 
-$subject=$(Get-Content -Path text.txt -Encoding UTF8)
+$encoding = [System.Text.Encoding]::UTF8
+$subject ="Привет"
+$subject= $enencodingc.GetBytes($subject)
+
+# $subject=$(Get-Content -Path text.txt -Encoding UTF8)
 $body="Body"
 
 Write-Host "---------- BEFORE ENCODING ---------"
