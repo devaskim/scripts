@@ -1,4 +1,4 @@
-ipconfig  | Out-Null 
+# ipconfig  | Out-Null 
 [Console]::OutputEncoding = [System.Text.Encoding]::Default
 
 function convertToUtf8($str) {
