@@ -1,4 +1,4 @@
-# [Console]::OutputEncoding = [System.Text.Encoding]::Default
+[Console]::OutputEncoding = [System.Text.Encoding]::Default
 
 function convertToUtf8($str) {
     return [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Default.GetBytes($str))
