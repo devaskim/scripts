@@ -8,7 +8,7 @@ $subject="Письмо с вложением"
 $body="Тимсити и Повершелл побеждены!!!"
 
 Write-Host "---------- MAIL START ---------"
-Write-Host "Кому: $($to -join ', ')"
+Write-Host "Кому: $($to -join ',')"
 Write-Host "Тема письма: $subject"
 Write-Host "Тело письма: $body"
 Write-Host  $(if ($env:FILES) { "Вложения: $env:FILES" } else { "--нет вложений---" })
@@ -20,7 +20,7 @@ function convertToUtf8($str) {
 
 $CURRENT_DIR=Get-Location
 
-$mail = new-object System.Net.Mail.MailMessage
+$mail = new-object System.Net.Mail.MailMessage($from, $($to -join ','))
 $mail.Subject = $(convertToUtf8 $subject)  
 $mail.Body = $(convertToUtf8 $body)
 
@@ -46,8 +46,6 @@ if ($smtp.IndexOf("vtb") -eq -1) {
 }
  
 foreach ($email in $to) {
-    $mail.From=$from
-    $mail.To=$email
     try {  
        $client.Send($mail)  
        "Письмо от: {1}, кому: {0} успешно отправлено" -f $mail.From, $mail.To
