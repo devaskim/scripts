@@ -45,12 +45,10 @@ if ($smtp.IndexOf("vtb") -eq -1) {
     $client.Credentials = New-Object System.Net.NetworkCredential($email, "egwyxnfiwpmnjuqf");
 }
  
-foreach ($email in $to) {
-    try {  
-       $client.Send($mail)  
-       "Письмо от: {1}, кому: {0} успешно отправлено" -f $mail.From, $mail.To
-    } catch {  
-        "Ошибка при отправке письма: {0}" -f $Error.ToString()  
-    }
+try {  
+   $client.Send($mail)  
+   Write-Host "Письмо отправлено"
+} catch {  
+    "Ошибка при отправке письма: {0}" -f $Error.ToString()  
 }
 break
