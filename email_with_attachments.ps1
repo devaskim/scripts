@@ -1,4 +1,4 @@
-[Console]::OutputEncoding = [System.Text.Encoding]::Default
+# [Console]::OutputEncoding = [System.Text.Encoding]::Default
 
 $email="denisdenisi4@yandex.ru"
 $smtp="smtp.yandex.ru"
@@ -9,7 +9,7 @@ $body="Тимсити и Повершелл побеждены!!!"
 Write-Host "---------- MAIL START ---------"
 Write-Host "Тема письма: $subject"
 Write-Host "Тело письма: $body"
-Write-Host  $(if ($env:FILES) "Вложения: { $env:FILES" } else { "--нет вложений---" })
+Write-Host  $(if ($env:FILES) { "Вложения: $env:FILES" } else { "--нет вложений---" })
 Write-Host "---------- MAIL END ---------"
 
 function convertToUtf8($str) {
