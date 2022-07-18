@@ -1,12 +1,14 @@
 [Console]::OutputEncoding = [System.Text.Encoding]::Default
 
-$email="denisdenisi4@yandex.ru"
+$from="denisdenisi4@yandex.ru"
 $smtp="smtp.yandex.ru"
+$to=$(if ($env:TO) { $($env:TO -split '\s+') } else { @( $from ) })
 
 $subject="Письмо с вложением"
 $body="Тимсити и Повершелл побеждены!!!"
 
 Write-Host "---------- MAIL START ---------"
+Write-Host "Кому: $($to -join ', ')"
 Write-Host "Тема письма: $subject"
 Write-Host "Тело письма: $body"
 Write-Host  $(if ($env:FILES) { "Вложения: $env:FILES" } else { "--нет вложений---" })
@@ -18,35 +20,38 @@ function convertToUtf8($str) {
 
 $CURRENT_DIR=Get-Location
 
-$message = new-object System.Net.Mail.MailMessage($email, $email)
-$message.Subject = $(convertToUtf8 $subject)  
-$message.Body = $(convertToUtf8 $body)
+$mail = new-object System.Net.Mail.MailMessage($from, "")
+$mail.Subject = $(convertToUtf8 $subject)  
+$mail.Body = $(convertToUtf8 $body)
 
 if ($env:FILES) {
-	$env:FILES -split '\s+' | ForEach-Object {	
-		$FILE=$_
+    $env:FILES -split '\s+' | ForEach-Object {	
+        $FILE=$_
 
-		if (!(Test-Path $FILE)) {
-			Write-Host "Файл '$($FILE)' не найден"
-			continue
-		}
+        if (!(Test-Path $FILE)) {
+            Write-Host "Файл '$($FILE)' не найден"
+            continue
+        }
 
-		$attachment = new-object System.Net.Mail.Attachment("$CURRENT_DIR\$FILE")
-		$message.Attachments.Add($attachment)
-	}
+        $attachment = new-object System.Net.Mail.Attachment("$CURRENT_DIR\$FILE")
+        $mail.Attachments.Add($attachment)
+    }
 }
 
-$client = new-object system.net.mail.smtpclient($smtp, $(if ($smtp.IndexOf("vtb") -ne -1) { 25 } else { 587 }))
-if ([int]$client.Port -ne 25) {
+$client = new-object system.net.mail.smtpclient($smtp)
+if ($smtp.IndexOf("vtb") -eq -1) {
+    $client.Port = 587
     $client.EnableSsl = $true 
     $client.Credentials = New-Object System.Net.NetworkCredential($email, "egwyxnfiwpmnjuqf");
 }
  
-"Отправляем письмо адресату {0} через {1} порт {2}." -f $client.To, $client.Host, $client.Port  
-try {  
-   $client.Send($message)  
-   "Письмо от: {1}, кому: {0} успешно отправлено" -f $client.From, $client.To
-} catch {  
-  "Ошибка при отправке письма: {0}" -f $Error.ToString()  
-} 
+foreach ($email in $to) {  
+    $mail.To=$email
+    try {  
+       $client.Send($mail)  
+       "Письмо от: {1}, кому: {0} успешно отправлено" -f $mail.From, $mail.To
+    } catch {  
+        "Ошибка при отправке письма: {0}" -f $Error.ToString()  
+    }
+}
 break
