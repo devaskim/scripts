@@ -4,7 +4,7 @@ function convertToUtf8($str) {
     return [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Default.GetBytes($str))
 }
 
-$subject="Письмо из Повершелла"
+$subject="C вложением"
 $body="Тимсити и Повершелл побеждены!!!"
 
 Write-Host "---------- TEXT START ---------"
