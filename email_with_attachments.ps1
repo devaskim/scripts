@@ -39,7 +39,7 @@ if ($env:FILES) {
 $client = new-object system.net.mail.smtpclient($smtp, $(if ($smtp.IndexOf("vtb") -ne -1) { 25 } else { 587 }))
 if ([int]$client.Port -ne 25) {
     $client.EnableSsl = $true 
-    $client.Credentials = New-Object System.Net.NetworkCredential($email, "egwyxnfiwpmnjuqf);
+    $client.Credentials = New-Object System.Net.NetworkCredential($email, "egwyxnfiwpmnjuqf");
 }
  
 "Отправляем письмо адресату {0} через {1} порт {2}." -f $client.To, $client.Host, $client.Port  
