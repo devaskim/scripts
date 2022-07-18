@@ -39,8 +39,8 @@ if ($env:FILES) {
     }
 }
 
-foreach ($email in $to) {
-    $mail.To.Add($email);
+foreach ($address in $to) {
+    $mail.To.Add($address);
 }
 
 $client = new-object system.net.mail.smtpclient($smtp)
