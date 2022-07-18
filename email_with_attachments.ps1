@@ -34,7 +34,7 @@ if ($env:FILES) {
             continue
         }
 
-        $attachment = new-object System.Net.Mail.Attachment("$CURRENT_DIR\$FILE", MediaTypeNames.Application.Octet)
+        $attachment = new-object System.Net.Mail.Attachment("$CURRENT_DIR\$FILE")
         $mail.Attachments.Add($attachment)
     }
 }
