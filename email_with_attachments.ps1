@@ -1,4 +1,4 @@
-# [Console]::OutputEncoding = [System.Text.Encoding]::Default
+[Console]::OutputEncoding = [System.Text.Encoding]::Default
 
 $email="denisdenisi4@yandex.ru"
 $smtp="smtp.yandex.ru"
