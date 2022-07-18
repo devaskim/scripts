@@ -20,10 +20,28 @@ function convertToUtf8($str) {
 
 $CURRENT_DIR=Get-Location
 
-$mail = new-object System.Net.Mail.MailMessage($from, $($to -join ','))
+$mail = new-object System.Net.Mail.MailMessage
+$mail.From = $from
 $mail.Subject = $(convertToUtf8 $subject)  
 $mail.Body = $(convertToUtf8 $body)
 
+if ($env:FILES) {
+    $env:FILES -split '\s+' | ForEach-Object {	
+        $FILE=$_
+
+        if (!(Test-Path $FILE)) {
+            Write-Host "Файл '$($FILE)' не найден"
+            continue
+        }
+
+        $attachment = new-object System.Net.Mail.Attachment("$CURRENT_DIR\$FILE")
+        $mail.Attachments.Add($attachment)
+    }
+}
+
+foreach ($email in $to) {
+    $mail.To.Add($email);
+}
 
 $client = new-object system.net.mail.smtpclient($smtp)
 if ($smtp.IndexOf("vtb") -eq -1) {
