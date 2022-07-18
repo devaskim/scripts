@@ -20,7 +20,7 @@ function convertToUtf8($str) {
 
 $CURRENT_DIR=Get-Location
 
-$mail = new-object System.Net.Mail.MailMessage($from, "")
+$mail = new-object System.Net.Mail.MailMessage
 $mail.Subject = $(convertToUtf8 $subject)  
 $mail.Body = $(convertToUtf8 $body)
 
@@ -45,7 +45,8 @@ if ($smtp.IndexOf("vtb") -eq -1) {
     $client.Credentials = New-Object System.Net.NetworkCredential($email, "egwyxnfiwpmnjuqf");
 }
  
-foreach ($email in $to) {  
+foreach ($email in $to) {
+    $mail.From=$from
     $mail.To=$email
     try {  
        $client.Send($mail)  
