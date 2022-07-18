@@ -7,17 +7,47 @@ function convertToUtf8($str) {
 $subject="C вложением"
 $body="Тимсити и Повершелл побеждены!!!"
 
-Write-Host "---------- TEXT START ---------"
-Write-Host "Тема: $subject"
-Write-Host "Письмо: $body"
-Write-Host "---------- TEXT END ---------"
+Write-Host "---------- MAIL START ---------"
+Write-Host "Тема письма: $subject"
+Write-Host "Тело письма: $body"
+if ($env:FILES) {
+	Write-Host "Вложения: $env:FILES"
+} else {
+	Write-Host "--нет вложений---"
+}
+Write-Host "---------- MAIL END ---------"
 
-$email="denisdenisi4@yandex.ru"
-$smtp="smtp.yandex.ru"
-$port=587
+$CURRENT_DIR=Get-Location
+ 
+$from = New-Object System.Net.Mail.MailAddress $email
+$to = New-Object System.Net.Mail.MailAddress $email
 
-$password = ConvertTo-SecureString "egwyxnfiwpmnjuqf" -AsPlainText -Force
-$credentials = New-Object System.Management.Automation.PSCredential($email, $password)
+$message = new-object System.Net.Mail.MailMessage $from, $to  
+$message.Subject = $(convertToUtf8 $subject)  
+$message.Body = $(convertToUtf8 $body)
 
-$FILES=If ($env:FILES) {$env:FILES} Else {""}
-Send-MailMessage -Attachments $FILES -SmtpServer $smtp -Port $port -UseSsl -Credential $credentials -To $email -From $email -Subject $(convertToUtf8 $subject) -Body $(convertToUtf8 $body) -Encoding UTF8
+if ($env:FILES) {
+	$env:FILES -split '\s+' | ForEach-Object {	
+		$FILE=$_
+
+		if (!(Test-Path $FILE)) {
+			Write-Host "Файл '$($FILE)' не найден"
+			continue
+		}
+		
+		$attachment = new-object System.Net.Mail.Attachment("$CURRENT_DIR\$FILE")
+		$message.Attachments.Add($attachment)
+	}
+}
+
+$server = $smtp
+$client = new-object system.net.mail.smtpclient $server  
+ 
+"Отправляем письмо адресату {0} через {1} порт {2}." -f $to.ToString(), $client.Host, $client.Port  
+try {  
+   $client.Send($message)  
+   "Письмо от: {1}, кому: {0} успешно отправлено" -f $from, $to  
+} catch {  
+  "Ошибка при отправке письма: {0}" -f $Error.ToString()  
+} 
+break
