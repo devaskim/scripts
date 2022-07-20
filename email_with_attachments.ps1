@@ -7,25 +7,6 @@ $to=$(if ($env:TO) { $($env:TO -split '\s+') } else { @( $from ) })
 $subject="Письмо с вложением"
 $body="Тимсити и Повершелл побеждены!!!"
 
-$JIRADSO_USER="dyosick89@gmail.com"
-$JIRADSO_PASSWORD="Wtr0mYPBG6hMMLmCn690C32C"
-$JIRADSO_URL="https://batparse.atlassian.net"
-$JIRA_REST_ISSUE="$JIRADSO_URL/rest/api/latest/issue"
-$JIRA_TASK_SOURCE="BAT-1"
-
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-$encodedCredentials = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes("$($JIRADSO_USER):$($JIRADSO_PASSWORD)")) 
-$authHeader = @{
-    "Authorization" = "Basic $encodedCredentials"
-}
-
-$response = Invoke-WebRequest -Headers $authHeader `
-                              -Method Get `
-                              -Uri "https://batparse.atlassian.net/rest/api/latest/issue/BAT-1"
-$sourceTaskJson = ConvertFrom-Json $response.content
-
-$subject=$sourceTaskJson.fields.summary
-
 Write-Host "---------- MAIL START ---------"
 Write-Host "Кому: $($to -join ',')"
 Write-Host "Тема письма: $subject"
