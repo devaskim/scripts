@@ -21,7 +21,7 @@ $authHeader = @{
 
 $response = Invoke-WebRequest -Headers $authHeader `
                               -Method Get `
-                              -Uri "$JIRA_REST_ISSUE/$JIRA_TASK_SOURCE"
+                              -Uri "https://batparse.atlassian.net/rest/api/latest/issue/BAT-1"
 $sourceTaskJson = ConvertFrom-Json $response.content
 
 $subject=$sourceTaskJson.fields.summary
